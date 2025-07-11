@@ -94,12 +94,18 @@ test_endpoint "Trip Search (Date Filter)" "GET" "/trips?departure_date=$tomorrow
 # Test individual trip (not found)
 test_endpoint "Get Trip (Not Found)" "GET" "/trips/non-existent-id" "" "404"
 
-# Test create trip (requires auth)
+# Test create trip (requires auth - no header = 403)
 trip_data='{"from_location":"Tunis","to_location":"Paris","departure_date":"2025-07-15T10:00:00","available_seats":3,"available_weight_kg":20.0,"price_per_seat":150.0,"price_per_kg":5.0}'
-test_endpoint "Create Trip (Auth Required)" "POST" "/trips" "$trip_data" "401"
+test_endpoint "Create Trip (No Auth Header)" "POST" "/trips" "$trip_data" "403"
 
-# Test get my trips (requires auth)
-test_endpoint "Get My Trips (Auth Required)" "GET" "/trips/my" "" "401"
+# Test create trip with invalid token (should return 401)
+test_endpoint "Create Trip (Invalid Token)" "POST" "/trips" "$trip_data" "401" "Authorization: Bearer invalid-token"
+
+# Test get my trips (requires auth - no header = 403)
+test_endpoint "Get My Trips (No Auth Header)" "GET" "/trips/my" "" "403"
+
+# Test get my trips with invalid token (should return 401)
+test_endpoint "Get My Trips (Invalid Token)" "GET" "/trips/my" "" "401" "Authorization: Bearer invalid-token"
 
 echo ""
 echo "📋 Booking System Tests"
