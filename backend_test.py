@@ -65,7 +65,8 @@ class MountiAPITester:
             
             return response
         except requests.exceptions.RequestException as e:
-            return None, str(e)
+            print(f"Request failed: {str(e)}")
+            return None
     
     def test_authentication_system(self):
         """Test Authentication System with Emergent Auth"""
