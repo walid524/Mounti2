@@ -136,11 +136,11 @@ echo ""
 echo "🔔 Notifications System Tests"
 echo "----------------------------------------"
 
-# Test get notifications (requires auth)
-test_endpoint "Get Notifications (Auth Required)" "GET" "/notifications" "" "401"
+# Test get notifications (requires auth - no header = 403)
+test_endpoint "Get Notifications (No Auth Header)" "GET" "/notifications" "" "403"
 
-# Test mark notification read (requires auth)
-test_endpoint "Mark Notification Read (Auth Required)" "PUT" "/notifications/test-notification-id/read" "" "401"
+# Test mark notification read (requires auth - no header = 403)
+test_endpoint "Mark Notification Read (No Auth Header)" "PUT" "/notifications/test-notification-id/read" "" "403"
 
 echo ""
 echo "⚠️  Error Handling Tests"
