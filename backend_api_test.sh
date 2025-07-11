@@ -74,8 +74,8 @@ test_endpoint "Protected Endpoint (Invalid Token)" "GET" "/auth/me" "" "401" "Au
 # Test logout without auth (should return 403 - no auth header)
 test_endpoint "Logout Endpoint (No Auth Header)" "POST" "/auth/logout" "" "403"
 
-# Test logout with invalid auth (should return 401 - invalid token)
-test_endpoint "Logout Endpoint (Invalid Token)" "POST" "/auth/logout" "" "401" "Authorization: Bearer invalid-token"
+# Test logout with invalid auth (logout is idempotent, should return 200)
+test_endpoint "Logout Endpoint (Invalid Token - Idempotent)" "POST" "/auth/logout" "" "200" "Authorization: Bearer invalid-token"
 
 echo ""
 echo "🚗 Trip Management Tests"
