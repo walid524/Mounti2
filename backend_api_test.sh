@@ -65,11 +65,17 @@ test_endpoint "Session Creation (Invalid)" "POST" "/auth/session" '{"session_id"
 # Test session creation with malformed JSON
 test_endpoint "Session Creation (Bad JSON)" "POST" "/auth/session" 'invalid-json' "400"
 
-# Test protected endpoint without auth
-test_endpoint "Protected Endpoint (/auth/me)" "GET" "/auth/me" "" "401"
+# Test protected endpoint without auth (should return 403 - no auth header)
+test_endpoint "Protected Endpoint (No Auth Header)" "GET" "/auth/me" "" "403"
 
-# Test logout without auth
-test_endpoint "Logout Endpoint" "POST" "/auth/logout" "" "401"
+# Test protected endpoint with invalid auth (should return 401 - invalid token)
+test_endpoint "Protected Endpoint (Invalid Token)" "GET" "/auth/me" "" "401" "Authorization: Bearer invalid-token"
+
+# Test logout without auth (should return 403 - no auth header)
+test_endpoint "Logout Endpoint (No Auth Header)" "POST" "/auth/logout" "" "403"
+
+# Test logout with invalid auth (should return 401 - invalid token)
+test_endpoint "Logout Endpoint (Invalid Token)" "POST" "/auth/logout" "" "401" "Authorization: Bearer invalid-token"
 
 echo ""
 echo "🚗 Trip Management Tests"
