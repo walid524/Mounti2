@@ -111,23 +111,26 @@ echo ""
 echo "📋 Booking System Tests"
 echo "----------------------------------------"
 
-# Test create booking (requires auth)
+# Test create booking (requires auth - no header = 403)
 booking_data='{"trip_id":"test-trip-id","booking_type":"seat","quantity":2}'
-test_endpoint "Create Booking (Auth Required)" "POST" "/bookings" "$booking_data" "401"
+test_endpoint "Create Booking (No Auth Header)" "POST" "/bookings" "$booking_data" "403"
 
-# Test create parcel booking (requires auth)
+# Test create booking with invalid token (should return 401)
+test_endpoint "Create Booking (Invalid Token)" "POST" "/bookings" "$booking_data" "401" "Authorization: Bearer invalid-token"
+
+# Test create parcel booking (requires auth - no header = 403)
 parcel_data='{"trip_id":"test-trip-id","booking_type":"parcel","quantity":5}'
-test_endpoint "Create Parcel Booking (Auth Required)" "POST" "/bookings" "$parcel_data" "401"
+test_endpoint "Create Parcel Booking (No Auth Header)" "POST" "/bookings" "$parcel_data" "403"
 
-# Test get my bookings (requires auth)
-test_endpoint "Get My Bookings (Auth Required)" "GET" "/bookings/my" "" "401"
+# Test get my bookings (requires auth - no header = 403)
+test_endpoint "Get My Bookings (No Auth Header)" "GET" "/bookings/my" "" "403"
 
-# Test get trip bookings (requires auth)
-test_endpoint "Get Trip Bookings (Auth Required)" "GET" "/bookings/trip/test-trip-id" "" "401"
+# Test get trip bookings (requires auth - no header = 403)
+test_endpoint "Get Trip Bookings (No Auth Header)" "GET" "/bookings/trip/test-trip-id" "" "403"
 
-# Test update booking status (requires auth)
+# Test update booking status (requires auth - no header = 403)
 status_data='{"status":"confirmed"}'
-test_endpoint "Update Booking Status (Auth Required)" "PUT" "/bookings/test-booking-id/status" "$status_data" "401"
+test_endpoint "Update Booking Status (No Auth Header)" "PUT" "/bookings/test-booking-id/status" "$status_data" "403"
 
 echo ""
 echo "🔔 Notifications System Tests"
