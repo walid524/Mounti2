@@ -1,0 +1,133 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Custom Material Design overrides */
+.mat-mdc-card {
+  @apply shadow-mediterranean;
+}
+
+.mat-mdc-elevated-button {
+  @apply shadow-mediterranean;
+}
+
+.mat-mdc-fab {
+  @apply shadow-mediterranean-lg;
+}
+
+/* Custom utility classes */
+.btn-primary {
+  @apply bg-gradient-to-r from-navy-600 to-mint-500 text-white font-semibold py-3 px-6 rounded-lg hover:from-navy-700 hover:to-mint-600 transition-all duration-200;
+}
+
+.btn-secondary {
+  @apply bg-white text-navy-600 font-semibold py-3 px-6 rounded-lg border-2 border-navy-600 hover:bg-navy-50 transition-all duration-200;
+}
+
+.card-mediterranean {
+  @apply bg-white rounded-xl shadow-mediterranean p-6;
+}
+
+.form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy-500 focus:border-transparent;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.navy.100');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.navy.400');
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.navy.600');
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Status indicators */
+.status-active {
+  @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs;
+}
+
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs;
+}
+
+.status-cancelled {
+  @apply bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs;
+}
+
+.status-confirmed {
+  @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs;
+}
+
+/* Loading states */
+.loading {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Glass effect */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus visible for better keyboard navigation */
+.focus-visible:focus {
+  outline: 2px solid theme('colors.navy.500') !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
